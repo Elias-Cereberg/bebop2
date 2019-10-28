@@ -147,9 +147,9 @@ class StreamingExample:
                 obj = json.loads(line)
                 altitude = obj['altitude'] - drone_location['altitude']
                 self.drone(
-                    moveTo(obj['latitude'],  obj['longitude'], 1.5, MoveTo_Orientation_mode.NONE, 0.0)
+                    moveTo(obj['latitude'],  obj['longitude'], altitude, MoveTo_Orientation_mode.NONE, 0.0)
                     >> FlyingStateChanged(state="hovering", _timeout=5)
-                    >> moveToChanged(latitude=obj['latitude'], longitude=obj['longitude'], altitude=1.5, orientation_mode=MoveToChanged_Orientation_mode.NONE, status='DONE', _policy='check_wait')
+                    >> moveToChanged(latitude=obj['latitude'], longitude=obj['longitude'], altitude=altitude, orientation_mode=MoveToChanged_Orientation_mode.NONE, status='DONE', _policy='check_wait')
                     >> FlyingStateChanged(state="hovering", _timeout=0)
                 ).wait()
                 line = myfile.readline()
